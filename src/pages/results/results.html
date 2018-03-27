@@ -1,15 +1,20 @@
 <ion-header>
-
-  <ion-navbar>
+<ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only color="primary" (click)="search()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Results</ion-title>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="this.searchResults">
+  <ion-list *ngIf="showResults">
       <button ion-item *ngFor="let result of this.searchResults" (click)="lyricsSearch(resultArtist.textContent, resultSong.textContent)">
           <ion-icon name="information-circle" item-start></ion-icon>
           <span #resultSong>{{ result.song }}</span> - <span #resultArtist>{{ result.artist }}</span>
         </button>
   </ion-list>
+<h1 *ngIf="showResults == false" text-center>{{ this.searchResults[0].error }}</h1>
 </ion-content>

@@ -7,14 +7,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'results.html',
 })
 export class ResultsPage {
-  searchResults;
+  searchResults = [];
+  showResults:boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.searchResults = this.navParams.get('searchResults');
   }
-  ionViewWillEnter() {
+
+  ionViewWillEnter(){
+    console.log(this.searchResults[0].error);
+    if(this.searchResults[0].error){
+      this.showResults = false;
+    }
+    else
+      this.showResults = true;
   }
 
   lyricsSearch(artistResult, songResult){
     this.navCtrl.push("LyricsPage", { artist: artistResult, song: songResult });
+  }
+
+  search(){
+    this.navCtrl.popToRoot();
   }
 }

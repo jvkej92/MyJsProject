@@ -31,16 +31,19 @@ export class HomePage {
     this.search.getSuggestions(searchTrimmed).subscribe(
       (res) => {
         loading.dismiss();
+        if (res["data"].length > 0){
         let results = res["data"];
+        
           for(let i = 0; i <= 10; i++ ){
             let result = {
               song: results[i].title_short,
               artist: results[i].artist.name
             }
             this.searchResults.push(result);
-            if (this.searchResults.length === 0) this.searchResults.push("No Songs Found =-(");
           }
-          this.navCtrl.push('ResultsPage', { searchResults : this.searchResults});
+        }
+        else this.searchResults.push({ error : "No Songs Found =("});
+        this.navCtrl.push('ResultsPage', { searchResults : this.searchResults});
         });
   }
 }

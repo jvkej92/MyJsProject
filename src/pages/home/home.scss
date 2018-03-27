@@ -4,4 +4,9 @@ page-home {
         display: flex;
         align-content: middle;
     }
+    sub{
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
 }

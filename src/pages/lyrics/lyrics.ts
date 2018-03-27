@@ -32,4 +32,7 @@ export class LyricsPage {
       }
     );
   }
+  search(){
+    this.navCtrl.popToRoot();
+  }
 }
