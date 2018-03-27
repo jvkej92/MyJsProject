@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Lyrics</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <ion-card color="dark">
+    <ion-card-header color="light">
+      Song: {{ this.song }}
+    </ion-card-header>
+    <ion-card-header color="light">
+      Artist: {{ this.artist }}
+    </ion-card-header>
+    <ion-card-content style="white-space: pre-wrap" color="primary">{{ this.songLyrics }}</ion-card-content>
+  </ion-card>
+</ion-content>

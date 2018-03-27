@@ -1,14 +1,22 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <ion-title>Lyric Finder</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-card color="bold">
+  <ion-card-header color="light">
+    Search for (like pretty much) any song*:
+  </ion-card-header>
+  <ion-card-content padding>
+    <ion-list>
+      <ion-item margin-bottom>
+            <ion-input text-center placeolder="Party All the Time, One Week, 99 Luftballoons, etc..." #song></ion-input>
+      </ion-item>
+      <button ion-button block color="secondary" (click)="getSuggestions(song)" [disabled]="!song.value">Find Song</button>      
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+<sub>* kinda</sub>
 </ion-content>

@@ -1,0 +1,24 @@
+ion-header{
+    .toolbar-background {
+        background: color($colors, secondary); 
+        margin-bottom: 50px;
+        padding: 32px 0;
+    }
+
+    ion-title {
+        .toolbar-title, .toolbar-title-md, .toolbar-title-ios{
+            font-family: "amboy-inline";
+            letter-spacing: .125em;
+            text-align: center;
+            color: color($colors, primary);
+        }
+
+        .toolbar-title, .toolbar-title-md,{
+            font-size: 2rem;
+        }
+
+        .toolbar-title-ios{
+            font-size: 1.9rem;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+%font-body{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+%font-header{
+    font-family: 'Anonymous Pro', monospace;
+    line-height: 1.5;
+}
+
+.card > ion-card-header{
+    @extend %font-header;
+    white-space: normal;
+}

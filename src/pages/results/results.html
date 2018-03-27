@@ -1,0 +1,15 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Results</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="this.searchResults">
+      <button ion-item *ngFor="let result of this.searchResults" (click)="lyricsSearch(resultArtist.textContent, resultSong.textContent)">
+          <ion-icon name="information-circle" item-start></ion-icon>
+          <span #resultSong>{{ result.song }}</span> - <span #resultArtist>{{ result.artist }}</span>
+        </button>
+  </ion-list>
+</ion-content>
