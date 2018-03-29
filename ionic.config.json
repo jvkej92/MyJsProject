@@ -2,5 +2,7 @@
   "name": "LyricsFinder",
   "app_id": "0519baef",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }

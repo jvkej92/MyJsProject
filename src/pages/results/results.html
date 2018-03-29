@@ -5,16 +5,21 @@
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Results</ion-title>
+    <ion-title>Results For: {{ this.searchTerm }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list *ngIf="showResults">
+<ion-content padding-top>
+  <ion-list *ngIf="showResults" padding>
       <button ion-item *ngFor="let result of this.searchResults" (click)="lyricsSearch(resultArtist.textContent, resultSong.textContent)">
-          <ion-icon name="information-circle" item-start></ion-icon>
-          <span #resultSong>{{ result.song }}</span> - <span #resultArtist>{{ result.artist }}</span>
-        </button>
+        <ion-icon name="information-circle" item-start></ion-icon>
+        <span #resultSong>{{ result.song }}</span> - <span #resultArtist>{{ result.artist }}</span>
+      </button>
+      <button ion-button color="primary" margin-top center disabled>Load More Doesn't Work: CORS</button>
   </ion-list>
-<h1 *ngIf="showResults == false" text-center>{{ this.searchResults[0].error }}</h1>
+  <ion-card color="danger" *ngIf="showResults == false" id="error-card" padding>
+    <h1 text-center>{{ this.searchResults[0].error }}</h1>
+    <button ion-button block color="primary" (click)="search()">Try Again?</button>
+  </ion-card>
+
 </ion-content>

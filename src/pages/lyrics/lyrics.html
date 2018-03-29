@@ -11,13 +11,12 @@
 
 
 <ion-content >
-  <ion-card color="dark">
-    <ion-card-header color="light">
-      Song: {{ this.song }}
-    </ion-card-header>
-    <ion-card-header color="light">
-      Artist: {{ this.artist }}
-    </ion-card-header>
+  <ion-card color="dark" *ngIf="this.lyricsFound">
+    <ion-card-header>{{ this.song }} by {{ this.artist }}</ion-card-header>
     <ion-card-content style="white-space: pre-wrap" color="primary">{{ this.songLyrics }}</ion-card-content>
+  </ion-card>
+  <ion-card color="danger" *ngIf="this.lyricsFound == false" id="error-card" padding>
+    <ion-card-header>Sorry! We couldn't find the lyrics for {{ this.song }} by {{ this.artist }}</ion-card-header>
+    <button ion-button block color="primary" (click)="search()">Try Again?</button>
   </ion-card>
 </ion-content>

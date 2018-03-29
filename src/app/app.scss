@@ -18,7 +18,7 @@
 
 //Universal Rules
 .fixed-content {
-    background: color($colors, primary);
+    background: color($colors, dark);
 }
 
 *::placeholder{
@@ -30,3 +30,5 @@
 @import "../theme/Components/header.scss";
 
 @import "../theme/Components/cards.scss";
+
+@import "../theme/Components/errorCards.scss";

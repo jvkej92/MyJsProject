@@ -21,4 +21,11 @@ export class SearchProvider {
       return suggestions;
     });
   }
+
+  getNext(nextUrl:string, searchTerm:string): Observable<object>{
+    nextUrl.replace('undefined', searchTerm);
+    return this.http.get(nextUrl).map((suggestions: Response) =>{
+      return suggestions;
+    });
+  }
 }

@@ -10,12 +10,19 @@ import { LyricsProvider } from '../../providers/lyrics/lyrics';
 export class LyricsPage {
 
   songLyrics;
-  artist;
-  song;
+  artist:string = "some singer or band or something";
+  song:string = "Some song";
+  lyricsFound;
   constructor(public navCtrl: NavController, public navParams: NavParams, public lyrics: LyricsProvider, public loadingCtrl: LoadingController) {
-    this.artist = navParams.get("artist");
-    this.song = navParams.get("song");
-    this.getSongLyrics();
+    if(navParams.get("artist")){
+      this.artist = navParams.get("artist");
+      this.song = navParams.get("song");
+      this.getSongLyrics();
+      this.lyricsFound = true;
+    }
+    else{
+      this.lyricsFound = false;
+    }
   }
 
   getSongLyrics(){
@@ -24,11 +31,13 @@ export class LyricsPage {
     this.lyrics.getLyrics(this.artist, this.song).subscribe(
       (res)=>{  
         this.songLyrics = res;
-        setTimeout(function(){loading.dismiss();}, 1000);
+        this.lyricsFound = true;
+        setTimeout(function(){loading.dismiss();}, 1500);
       }, 
       (err)=> {
+        this.lyricsFound = false;
         this.songLyrics = "Not Found :-("
-        setTimeout(function(){loading.dismiss();}, 1000);
+        setTimeout(function(){loading.dismiss();}, 1500);
       }
     );
   }

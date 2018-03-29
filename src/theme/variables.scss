@@ -35,32 +35,32 @@ $font-family-base: 'Ubuntu', sans-serif;
 $colors: (
   
 primary: (
-    base:    #FFFFFC,
-    contrast:  #191516
+    base:    #E8EEF2,
+    contrast:  #5F506B
   ),
   
-  secondary:  #BEB7A4,
+  secondary:  #85BDBF,
   
   bold: (
-    base: #998888,
-    contrast: #FFFFFC
+    base: #57737A,
+    contrast: #5F506B
   ),
   
   danger:     #FF1B1C,
   
   light: (
-    base: #FFFFFC,
-    contrast: #0B2027 
+    base: #E8EEF2,
+    contrast: #37393A 
   ),
   
   dark: (
-    base: #191516,
-    contrast: #A7C6DA
+    base: #533747,
+    contrast: #E8EEF2
   )
 
 );
 
-$tabs-background: #BEB7A4;
+$tabs-background: #533747;
 
 // App iOS Variables
 // --------------------------------------------------

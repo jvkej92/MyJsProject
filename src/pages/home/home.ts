@@ -9,9 +9,8 @@ import 'rxjs/add/operator/map'
 })
 export class HomePage {
 
-  songLyrics;
-  searchTerm:String = "";
   searchResults:Array<any> = [];
+  nextSearch;
   constructor(public navCtrl: NavController, public search: SearchProvider, public loadingCtrl: LoadingController) {
 
   }
@@ -30,20 +29,20 @@ export class HomePage {
     loading.present();
     this.search.getSuggestions(searchTrimmed).subscribe(
       (res) => {
-        loading.dismiss();
+
         if (res["data"].length > 0){
-        let results = res["data"];
-        
-          for(let i = 0; i <= 10; i++ ){
+          res["data"].forEach(song => {
             let result = {
-              song: results[i].title_short,
-              artist: results[i].artist.name
+              song: song.title_short,
+              artist: song.artist.name
             }
             this.searchResults.push(result);
-          }
+          });
+          this.nextSearch = res["next"];
         }
         else this.searchResults.push({ error : "No Songs Found =("});
-        this.navCtrl.push('ResultsPage', { searchResults : this.searchResults});
+        setTimeout(function(){loading.dismiss();}, 1000);
+        this.navCtrl.push('ResultsPage', { searchResults: this.searchResults, nextSearch: this.nextSearch, searchTerm: searchTerm.value });
         });
   }
 }
