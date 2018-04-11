@@ -22,9 +22,8 @@ export class SearchProvider {
     });
   }
 
-  getNext(nextUrl:string, searchTerm:string): Observable<object>{
-    nextUrl.replace('undefined', searchTerm);
-    return this.http.get(nextUrl).map((suggestions: Response) =>{
+  getNext(link:string): Observable<object>{
+    return this.http.get(link).map((suggestions: Response) => {
       return suggestions;
     });
   }

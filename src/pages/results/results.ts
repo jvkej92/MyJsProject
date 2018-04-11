@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
 import { SearchProvider } from '../../providers/search/search';
 
 @IonicPage()
@@ -12,47 +12,61 @@ export class ResultsPage {
   searchResults = [];
   searchTerm:string;
   nextSearch:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public searchProvider: SearchProvider) {
-    this.searchResults = this.navParams.get('searchResults');
-    this.searchTerm = this.navParams.get('searchTerm');
-    this.nextSearch = this.navParams.get('nextSearch');
-    this.checkForResults();
+  constructor (
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public loadingCtrl: LoadingController, 
+    public searchProvider: SearchProvider, 
+    public modalCtrl:ModalController
+  ) {
+      this.searchResults = this.navParams.get('searchResults');
+      this.searchTerm = this.navParams.get('searchTerm');
+      this.nextSearch = this.navParams.get('nextSearch');
+      this.showResults = this.checkForResults();
   }
 
+  //Triggered by constructor
+  //Checks to see if search returns any results 
+  //Returns true if results are found
   checkForResults(){
-    console.log(this.searchResults[0].error);
     if(this.searchResults[0].error){
-      this.showResults = false;
+      return false;
     }
     else
-      this.showResults = true;
+      return true;
   }
 
+  //Take's the song and searches for lyrics based on the song title and artist
   lyricsSearch(artistResult, songResult){
     this.navCtrl.push("LyricsPage", { artist: artistResult, song: songResult });
   }
 
-  getNext(){
-    let loading = this.loadingCtrl.create({content: 'I mean.. okay I\'ll try and find some more...'});
+  //Goes back to search
+  search(){
+    this.navCtrl.popToRoot();
+  }
+
+  //Doesn't work because of CORS =(
+  loadMore(){
+    let loading = this.loadingCtrl.create({content: 'Finding for more songs'});
     loading.present();
-    this.searchProvider.getNext(this.nextSearch, this.searchTerm).subscribe(
-      (res) => {
-        loading.dismiss();
+    this.searchProvider.getNext(this.nextSearch).subscribe(
+      res => {
         if (res["data"].length > 0){
           res["data"].forEach(song => {
             let result = {
               song: song.title_short,
-              artist: song.artist.name
+              artist: song.artist.name,
+              albumCover: song.album.cover_big
             }
             this.searchResults.push(result);
           });
+          this.nextSearch = res["next"];
         }
-        else 
-          this.searchResults.push({ error : "That's all folks!"});
-      });
-  }
-
-  search(){
-    this.navCtrl.popToRoot();
+        else this.searchResults.push({ error : "No Songs Found =("});
+        
+        setTimeout(function(){loading.dismiss();}, 1000);
+      }
+    );
   }
 }

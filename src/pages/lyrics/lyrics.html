@@ -12,7 +12,10 @@
 
 <ion-content >
   <ion-card color="dark" *ngIf="this.lyricsFound">
-    <ion-card-header>{{ this.song }} by {{ this.artist }}</ion-card-header>
+    <ion-card-header text-center padding-bottom margin-bottom>
+      <h1>{{ this.song }}</h1>
+      <h2>by {{ this.artist }}</h2> 
+  </ion-card-header> 
     <ion-card-content style="white-space: pre-wrap" color="primary">{{ this.songLyrics }}</ion-card-content>
   </ion-card>
   <ion-card color="danger" *ngIf="this.lyricsFound == false" id="error-card" padding>

@@ -11,12 +11,18 @@
 
 <ion-content padding-top>
   <ion-list *ngIf="showResults" padding>
-      <button ion-item *ngFor="let result of this.searchResults" (click)="lyricsSearch(resultArtist.textContent, resultSong.textContent)">
-        <ion-icon name="information-circle" item-start></ion-icon>
-        <span #resultSong>{{ result.song }}</span> - <span #resultArtist>{{ result.artist }}</span>
-      </button>
-      <button ion-button color="primary" margin-top center disabled>Load More Doesn't Work: CORS</button>
+    <ion-item *ngFor="let result of this.searchResults" (click)="lyricsSearch(resultArtist.textContent, resultSongs.textContent)">
+      <ion-thumbnail item-start>
+          <img src="{{ result.albumCover}}">
+        </ion-thumbnail>
+        <h2 #resultSongs>{{ result.song }}</h2>
+        <p #resultArtist>{{ result.artist }}</p>
+    </ion-item>
   </ion-list>
+  <div class="row" justify-content-between padding>
+    <button ion-button color="primary" col-4 (click)="search()">Back to Search</button>
+    <button ion-button color="primary" col-4 (click)="loadMore()" disabled>Load More</button>
+  </div>
   <ion-card color="danger" *ngIf="showResults == false" id="error-card" padding>
     <h1 text-center>{{ this.searchResults[0].error }}</h1>
     <button ion-button block color="primary" (click)="search()">Try Again?</button>

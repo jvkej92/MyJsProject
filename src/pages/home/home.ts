@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import { SearchProvider } from '../../providers/search/search';
 import 'rxjs/add/operator/map'
+import { AboutPage } from '../about/about';
 
 @Component({
   selector: 'page-home',
@@ -11,7 +12,7 @@ export class HomePage {
 
   searchResults:Array<any> = [];
   nextSearch;
-  constructor(public navCtrl: NavController, public search: SearchProvider, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public search: SearchProvider, public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
 
   }
 
@@ -34,7 +35,8 @@ export class HomePage {
           res["data"].forEach(song => {
             let result = {
               song: song.title_short,
-              artist: song.artist.name
+              artist: song.artist.name,
+              albumCover: song.album.cover_big
             }
             this.searchResults.push(result);
           });
@@ -44,5 +46,10 @@ export class HomePage {
         setTimeout(function(){loading.dismiss();}, 1000);
         this.navCtrl.push('ResultsPage', { searchResults: this.searchResults, nextSearch: this.nextSearch, searchTerm: searchTerm.value });
         });
+  }
+
+  showAbout() {
+    let modal = this.modalCtrl.create(AboutPage);
+    modal.present();
   }
 }

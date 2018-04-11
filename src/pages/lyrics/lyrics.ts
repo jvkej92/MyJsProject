@@ -25,6 +25,9 @@ export class LyricsPage {
     }
   }
 
+
+  //Gets the lyrics of a the given song.
+  //If no lyrics are found displays an error
   getSongLyrics(){
     let loading = this.loadingCtrl.create({content: 'Translating the music bits into word bits or whatever...'});
     loading.present();
@@ -41,6 +44,8 @@ export class LyricsPage {
       }
     );
   }
+
+  //Back to search
   search(){
     this.navCtrl.popToRoot();
   }
