@@ -5,19 +5,29 @@
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Results For: {{ this.searchTerm }}</ion-title>
+    <ion-title>Results</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding-top>
+  <h1 color="dark">Results For: {{ this.searchTerm }}</h1>
   <ion-list *ngIf="showResults" padding>
-    <ion-item *ngFor="let result of this.searchResults" (click)="lyricsSearch(resultArtist.textContent, resultSongs.textContent)">
-      <ion-thumbnail item-start>
-          <img src="{{ result.albumCover}}">
-        </ion-thumbnail>
-        <h2 #resultSongs>{{ result.song }}</h2>
-        <p #resultArtist>{{ result.artist }}</p>
-    </ion-item>
+    <ion-item-sliding *ngFor="let result of this.searchResults">
+      <ion-item>
+        <ion-thumbnail item-start (click)="lyricsSearch(resultArtist.textContent, resultSongs.textContent)"> 
+            <img src="{{ result.albumCover}}">
+          </ion-thumbnail>
+          <h2 #resultSongs>{{ result.song }}</h2>
+          <p #resultArtist>{{ result.artist }}</p>
+          
+          <ion-item-options side="right">
+            <button ion-button color="primary" (click)="songInfo()">
+              <ion-icon name="information"></ion-icon>
+              More Info
+            </button>
+          </ion-item-options>
+      </ion-item>
+    </ion-item-sliding>
   </ion-list>
   <div class="row" justify-content-between padding>
     <button ion-button color="primary" col-4 (click)="search()">Back to Search</button>
