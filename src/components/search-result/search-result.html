@@ -1,0 +1,7 @@
+<ion-item (click)="lyricsSearch(resultArtist.textContent, resultSongs.textContent)">
+  <ion-thumbnail item-start > 
+      <img src="{{ this.albumCover}}">
+    </ion-thumbnail>
+    <h2 #resultSongs>{{ this.song }}</h2>
+    <p #resultArtist>{{ this.artist }}</p>
+</ion-item>

@@ -12,25 +12,25 @@ import { LyricsProvider } from '../providers/lyrics/lyrics';
 import { SearchProvider } from '../providers/search/search';
 import { AboutPage } from '../pages/about/about';
 import { SongInfoPage } from '../pages/song-info/song-info';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     AboutPage,
-    SongInfoPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    AboutPage,
-    SongInfoPage
+    AboutPage
   ],
   providers: [
     StatusBar,

@@ -12,9 +12,9 @@
   <ion-card-content padding>
     <ion-list>
       <ion-item margin-bottom>
-            <ion-input text-center placeolder="Party All the Time, One Week, 99 Luftballoons, etc..." #song></ion-input>
+      <ion-input text-center placeholder="Party All the Time, One Week, 99 Luftballoons, etc..." #song></ion-input>
       </ion-item>
-      <button ion-button block color="secondary" (click)="getSuggestions(song)" [disabled]="!song.value">Find Song</button>      
+      <button ion-button block color="secondary" (click)="searchSongs(song)" [disabled]="!song.value">Find Song</button>      
     </ion-list>
   </ion-card-content>
 </ion-card>

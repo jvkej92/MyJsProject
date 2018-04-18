@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ToastController } from 'ionic-angular';
 import { SearchProvider } from '../../providers/search/search';
 import 'rxjs/add/operator/map'
-import { AboutPage } from '../about/about';
 
 @Component({
   selector: 'page-home',
@@ -10,46 +9,35 @@ import { AboutPage } from '../about/about';
 })
 export class HomePage {
 
-  searchResults:Array<any> = [];
-  nextSearch;
-  constructor(public navCtrl: NavController, public search: SearchProvider, public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public searchProvider: SearchProvider, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
 
   }
 
-  //Clears the array to prevent weird search glitch
-  ionViewDidLeave(){
-    this.searchResults = [];
-  }
-
-
-  // This function creates an api call using the entered search term. Then takes the results and assign the value of the objects to the
-  // HomePage property searchResults. On failure it pushes a string with an error message  
-  getSuggestions(searchTerm){
+  searchSongs(searchTerm){
     let searchTrimmed = searchTerm.value.trim();
     let loading = this.loadingCtrl.create({content: 'Looking for them good good jams, my dude...'});
     loading.present();
-    this.search.getSuggestions(searchTrimmed).subscribe(
+    this.searchProvider.searchSong(searchTrimmed).subscribe( 
       (res) => {
-
-        if (res["data"].length > 0){
-          res["data"].forEach(song => {
-            let result = {
-              song: song.title_short,
-              artist: song.artist.name,
-              albumCover: song.album.cover_big
-            }
-            this.searchResults.push(result);
-          });
-          this.nextSearch = res["next"];
+        if(res){
+          setTimeout(function(){
+            loading.dismiss();
+          }, 2000)
+          this.navCtrl.push('ResultsPage', {results : res});
         }
-        else this.searchResults.push({ error : "No Songs Found =("});
-        setTimeout(function(){loading.dismiss();}, 1000);
-        this.navCtrl.push('ResultsPage', { searchResults: this.searchResults, nextSearch: this.nextSearch, searchTerm: searchTerm.value });
-        });
+        else{
+          loading.dismiss();
+          this.showError("No Results Found =(");
+        }
+      });
   }
-
-  showAbout() {
-    let modal = this.modalCtrl.create(AboutPage);
-    modal.present();
+  
+  showError(errorMsg: string){
+    let toast = this.toastCtrl.create({
+      message: errorMsg,
+      duration: 3000,
+      position: 'Top'
+    });
+    toast.present();
   }
 }
