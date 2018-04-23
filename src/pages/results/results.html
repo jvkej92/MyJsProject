@@ -10,18 +10,11 @@
 </ion-header>
 
 <ion-content padding-top>
-  <h1 color="dark">Results For: {{ this.searchResults.searchInfo.searchTerm }}</h1>
+  <h1 ion-text margin color="secondary">Results For: {{ this.searchResults.searchInfo.searchTerm }}</h1>
   <ion-list padding> 
     <search-result *ngFor="let result of this.searchResults.searchResults" [song]="result.song" [artist]="result.artist" [albumCover]="result.albumCover"></search-result>
   </ion-list>
-  
-  <div class="row" justify-content-between padding>
-    <button ion-button color="primary" col-4 (click)="search()">Back to Search</button>
-  </div>
-  
-  <ion-card color="danger" *ngIf="showResults == false" id="error-card" padding>
-    <h1 text-center>{{ this.searchResults[0].error }}</h1>
-    <button ion-button block color="primary" (click)="search()">Try Again?</button>
-  </ion-card>
-
+  <ion-row justify-content-center>
+      <back-button col-10 [backButton]="backButton" (back)="search($event)"></back-button>
+    </ion-row>
 </ion-content>

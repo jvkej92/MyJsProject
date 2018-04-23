@@ -1,0 +1,8 @@
+<ion-card *ngIf="this.lyrics.songLyrics" color="dark">
+  <ion-card-header text-center padding-bottom margin-bottom>
+    <h1>{{ this.lyrics.song }}</h1>
+    <h2>{{ this.lyrics.artist }}</h2> 
+  </ion-card-header> 
+  <ion-card-content style="white-space: pre-wrap" color="primary">{{ this.lyrics.songLyrics }}</ion-card-content>
+</ion-card>
+

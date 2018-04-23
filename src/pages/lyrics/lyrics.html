@@ -10,16 +10,9 @@
   </ion-header>
 
 
-<ion-content >
-  <ion-card color="dark" *ngIf="this.lyricsFound">
-    <ion-card-header text-center padding-bottom margin-bottom>
-      <h1>{{ this.song }}</h1>
-      <h2>by {{ this.artist }}</h2> 
-  </ion-card-header> 
-    <ion-card-content style="white-space: pre-wrap" color="primary">{{ this.songLyrics }}</ion-card-content>
-  </ion-card>
-  <ion-card color="danger" *ngIf="this.lyricsFound == false" id="error-card" padding>
-    <ion-card-header>Sorry! We couldn't find the lyrics for {{ this.song }} by {{ this.artist }}</ion-card-header>
-    <button ion-button block color="primary" (click)="search()">Try Again?</button>
-  </ion-card>
+<ion-content>
+<lyrics [lyrics]="songLyrics" (error)="showError($event)" (navigation)="search()"></lyrics>
+<ion-row justify-content-center>
+  <back-button col-10 [backButton]="backButton" (back)="search($event)"></back-button>
+</ion-row>
 </ion-content>

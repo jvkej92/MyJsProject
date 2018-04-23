@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -9,6 +9,7 @@ export class SearchResultComponent {
   @Input() public song:String;
   @Input() public artist:String;
   @Input() public albumCover:String;
+
   constructor(public navCtrl: NavController) {
   }
 

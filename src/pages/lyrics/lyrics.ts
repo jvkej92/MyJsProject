@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { LyricsProvider } from '../../providers/lyrics/lyrics';
+import { Lyrics } from '../../components/lyrics/lyrics';
+import { BackButton } from '../../components/back-button/back-button';
 
 @IonicPage()
 @Component({
@@ -9,44 +11,33 @@ import { LyricsProvider } from '../../providers/lyrics/lyrics';
 })
 export class LyricsPage {
 
-  songLyrics;
+  songLyrics: Lyrics;
+  backButton: BackButton;
   artist:string = "some singer or band or something";
   song:string = "Some song";
-  lyricsFound;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public lyrics: LyricsProvider, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public lyrics: LyricsProvider, public loadingCtrl: LoadingController, public toastCtrl: ToastController ) {
     if(navParams.get("artist")){
       this.artist = navParams.get("artist");
       this.song = navParams.get("song");
-      this.getSongLyrics();
-      this.lyricsFound = true;
+      this.songLyrics = new Lyrics(this.loadingCtrl, this.lyrics, this.song, this.artist);      
     }
-    else{
-      this.lyricsFound = false;
-    }
+    this.backButton = new BackButton('Back to Search');
   }
 
-
-  //Gets the lyrics of a the given song.
-  //If no lyrics are found displays an error
-  getSongLyrics(){
-    let loading = this.loadingCtrl.create({content: 'Translating the music bits into word bits or whatever...'});
-    loading.present();
-    this.lyrics.getLyrics(this.artist, this.song).subscribe(
-      (res)=>{  
-        this.songLyrics = res;
-        this.lyricsFound = true;
-        setTimeout(function(){loading.dismiss();}, 1500);
-      }, 
-      (err)=> {
-        this.lyricsFound = false;
-        this.songLyrics = "Not Found :-("
-        setTimeout(function(){loading.dismiss();}, 1500);
-      }
-    );
+  //Takes a string value and displays it in an ionic toast
+  showError(errorMsg:string){
+    let toast = this.toastCtrl.create({
+      message: errorMsg,
+      duration: 3000,
+      position: 'Top',
+      showCloseButton: true,
+      dismissOnPageChange: true
+    });
+    toast.present();
   }
 
-  //Back to search
   search(){
     this.navCtrl.popToRoot();
   }
+
 }
