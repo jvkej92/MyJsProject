@@ -11,7 +11,6 @@ import {HttpClientModule} from '@angular/common/http';
 import { LyricsProvider } from '../providers/lyrics/lyrics';
 import { SearchProvider } from '../providers/search/search';
 import { AboutPage } from '../pages/about/about';
-import { SongInfoPage } from '../pages/song-info/song-info';
 import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
